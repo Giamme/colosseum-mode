@@ -1,3 +1,4 @@
+-- COLOSSEUM MODE v0.0.1
 --[[
     COLOSSEUM MODE 
   Colosseum Base Tweakunits
@@ -7,10 +8,8 @@
   restricting them to mobile units from all factions and disabling reclaiming.
   Units evolve at the 5 minutes mark, and special rules are applied to support the custom game mode.
 
-  Pair this with the other mode modules for a complete Colosseum experience.
-  - Colosseum Units Costs
-  - Colosseum Units Energy Consumption Fix
-  - Colosseum Units Limits
+  Pair this with the other mode module for a complete Colosseum experience.
+  - Colosseum Units Costs 
 
     This file is part of the BAR Colosseum mode for Spring RTS.
 
@@ -21,7 +20,7 @@
     armhp = {
         canReclaim = false,
         workertime = 99999,
-        metalcost = 500,
+        metalcost = 0,
         energycost = 0,
         reclaimable = false,
         buildoptions = {
@@ -32,33 +31,35 @@
         },
         customparams = {
             evolution_condition = "timer_global",
-            evolution_timer = 300,
+            evolution_timer = 120,
             evolution_target = "armdrag"
         }
     }, 
     armlab = {
         canReclaim = false,
         workertime = 99999,
-        metalcost = 500,
+        metalcost = 0,
         energycost = 0,
         reclaimable = false,
         buildoptions = {
             -- All bot units from all factions 
-            [1] = "armpw", [2] = "armwar", [3] = "armmav", [4] = "armsnipe", [5] = "armflea", [6] = "armzeus", [7] = "armfast", [8] = "armspid", [9] = "armvader",
-            [10] = "corak", [11] = "corstorm", [12] = "corpyro", [13] = "corthud", [14] = "corroach", [15] = "corcrash", [16] = "coramph", [17] = "corcan", [18] = "cornecro",
-            [19] = "leginf", [20] = "legbal", [21] = "legkark", [22] = "legstr", [23] = "leghelios", [24] = "leghades", [25] = "legrail", [26] = "legmrv", [27] = "legshot",
-            [28] = "armmar", [29] = "armcat", [30] = "corkarg", [31] = "armmamth"
+            [1] = "armflea", [2] = "armpw", [3] = "armrock", [4] = "armjeth", [5] = "armham", [6] = "armrectr", [7] = "armwar", [8] = "armvader", [9] = "armaser",
+            [10] = "armmark", [11] = "armspy", [12] = "armfast", [13] = "armspid", [14] = "armamph", [15] = "armfido", [16] = "armzeus", [17] = "armsptk", [18] = "armaak",
+            [19] = "armmav", [20] = "armsnipe", [21] = "armdecon", [22] = "armfboy", [23] = "armmar", [24] = "armvang", [25] = "armraz", [26] = "armpanth", [27] = "corak",
+            [28] = "corstorm", [29] = "corcrash", [30] = "cornecro", [31] = "corthud", [32] = "corroach", [33] = "corspec", [34] = "corvoyr", [35] = "corspy", [36] = "corpyro", 
+            [37] = "coramph", [38] = "cormort", [39] = "cortermite", [40] = "corcan", [41] = "corhrk", [42] = "coraak", [43] = "cordecon", [44] = "corsktl", [45] = "cormando",
+            [46] = "corsumo", [47] = "corshiva", [48] = "corkarg", [49] = "corcat", [50] = "cordemon", [51] = "corjugg", [52] = "corkorg"
         },
         customparams = {
             evolution_condition = "timer_global",
-            evolution_timer = 300,
+            evolution_timer = 120,
             evolution_target = "armdrag"
         }
     },
     corvp = {
         canReclaim = false,
         workertime = 99999,
-        metalcost = 500,
+        metalcost = 0,
         energycost = 0,
         reclaimable = false,
         buildoptions = {
@@ -77,14 +78,14 @@
         },
         customparams = {
             evolution_condition = "timer_global",
-            evolution_timer = 300,
+            evolution_timer = 120,
             evolution_target = "armdrag"
         }
     },
     armsy = {
         canReclaim = false,
         workertime = 99999,
-        metalcost = 500,
+        metalcost = 0,
         energycost = 0,
         reclaimable = false,
         buildoptions = {
@@ -95,14 +96,14 @@
         },
         customparams = {
             evolution_condition = "timer_global",
-            evolution_timer = 300,
+            evolution_timer = 120,
             evolution_target = "armdrag"
         }
     },
     corap = {
         canReclaim = false,
         workertime = 99999,
-        metalcost = 1000,
+        metalcost = 0,
         energycost = 0,
         reclaimable = false,
         buildoptions = {
@@ -113,16 +114,15 @@
         },
         customparams = {
             evolution_condition = "timer_global",
-            evolution_timer = 300,
+            evolution_timer = 120,
             evolution_target = "armdrag"
         }
     },
     armdrag = { 
         reclaimable = false
-    },
+    }, 
     armcom = {
         canReclaim = true,
-        workertime = 99999,
         buildoptions = {
             [1] = "corap",
             [2] = "armsy",
@@ -163,20 +163,15 @@
             [37] = ""
         }, 
         metalmake = 0,
-        energymake = 10000,
+        energymake = 0,
         energystorage = 20000,
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 300,
-            evolution_target = "armcomlvl2"
-        }
+
     }, 
     corcom = {
         canReclaim = true,
         metalmake = 0,
-        energymake = 10000,
+        energymake = 0,
         energystorage = 20000,
-        workertime = 99999,
         buildoptions = {
             [1] = "corap",
             [2] = "armsy",
@@ -216,106 +211,5 @@
             [36] = "",
             [37] = ""
         }, 
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 300,
-            evolution_target = "corcomlvl2"
-        }
     },
-    armcomlvl2 = {
-        canReclaim = false,
-        maxDamage = 4000,
-        workertime = 300,
-        metalmake = 0,
-        energymake = 10000,
-        energystorage = 20000,
-        metalstorage = 1000,
-        buildoptions = {
-            [1] = "",
-            [2] = "",
-            [3] = "",
-            [4] = "",
-            [5] = "",
-            [6] = "",
-            [7] = "",
-            [8] = "",
-            [9] = "",
-            [10] = "",
-            [11] = "",
-            [12] = "",
-            [13] = "",
-            [14] = "",
-            [15] = "",
-            [16] = "",
-            [17] = "",
-            [18] = "",
-            [19] = "",
-            [20] = "",
-            [21] = "",
-            [22] = "",
-            [23] = "",
-            [24] = "",
-            [25] = "",
-            [26] = "",
-            [27] = "",
-            [28] = "",
-            [29] = "",
-            [30] = "",
-            [31] = "",
-            [32] = "",
-            [33] = "",
-            [34] = "",
-            [35] = "",
-            [36] = "",
-            [37] = ""
-        },
-    },
-    corcomlvl2 = {
-        canReclaim = false,
-        maxDamage = 4000,
-        workertime = 300,
-        metalmake = 0,
-        energymake = 10000,
-        energystorage = 20000,
-        metalstorage = 1000,
-        buildoptions = {
-            [1] = "",
-            [2] = "",
-            [3] = "",
-            [4] = "",
-            [5] = "",
-            [6] = "",
-            [7] = "",
-            [8] = "",
-            [9] = "",
-            [10] = "",
-            [11] = "",
-            [12] = "",
-            [13] = "",
-            [14] = "",
-            [15] = "",
-            [16] = "",
-            [17] = "",
-            [18] = "",
-            [19] = "",
-            [20] = "",
-            [21] = "",
-            [22] = "",
-            [23] = "",
-            [24] = "",
-            [25] = "",
-            [26] = "",
-            [27] = "",
-            [28] = "",
-            [29] = "",
-            [30] = "",
-            [31] = "",
-            [32] = "",
-            [33] = "",
-            [34] = "",
-            [35] = "",
-            [36] = "",
-            [37] = ""
-        },
-    }
 }
