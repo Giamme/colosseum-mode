@@ -23,6 +23,8 @@ for unitName, unitDef in pairs(UnitDefs) do
     -- which is not needed in Colosseum mode.
     UnitDefs[unitName].energyupkeep = 0
 
+
+    -- Set energypershot and metalpershot to 0 for all units except the disintegrator
     if unitDef.weapondefs then
         for weaponName, weapondef in pairs(unitDef.weapondefs) do
             if(weaponName ~= "disintegrator") then
