@@ -1,0 +1,72 @@
+name: Generate Base64 Files
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.lua'
+      - '.github/workflows/generate-base64.yml'
+
+jobs:
+  generate-base64:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Generate base64 files
+      run: |
+        # Create base64 directory if it doesn't exist
+        mkdir -p base64
+        
+        # Function to process lua files
+        process_lua_files() {
+          # Find all .lua files, excluding those in base64/ directory
+          find . -name "*.lua" -type f ! -path "./base64/*" | while read -r lua_file; do
+            echo "Processing: $lua_file"
+            
+            # Get relative path without leading ./
+            rel_path="${lua_file#./}"
+            
+            # Create target directory structure in base64/
+            target_dir="base64/$(dirname "$rel_path")"
+            mkdir -p "$target_dir"
+            
+            # Generate base64 file with .txt extension
+            base_name=$(basename "$rel_path" .lua)
+            target_file="base64/$(dirname "$rel_path")/${base_name}.txt"
+            
+            # Encode file to base64
+            base64 -w 0 "$lua_file" > "$target_file"
+            
+            echo "Created: $target_file"
+          done
+        }
+        
+        # Process all lua files
+        process_lua_files
+
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if git diff --quiet HEAD -- base64/; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes detected in base64/ directory"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Changes detected in base64/ directory"
+          git diff --name-only HEAD -- base64/
+        fi
+
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add base64/
+        git commit -m "Auto-generate base64 files for Lua scripts"
+        git push
