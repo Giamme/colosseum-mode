@@ -17,9 +17,10 @@ for unitName, unitDef in pairs(UnitDefs) do
     local energy = UnitDefs[unitName].energycost or 0
     local extraMetal = math.floor((energy / 70) + 0.5)
     UnitDefs[unitName].metalcost = metal + extraMetal 
-
     UnitDefs[unitName].energycost = 0
 
+    -- Set energy upkeep to 0 for all units, some units like jammers or commanders have energy upkeep
+    -- which is not needed in Colosseum mode.
     UnitDefs[unitName].energyupkeep = 0
 
     if unitDef.weapondefs then
