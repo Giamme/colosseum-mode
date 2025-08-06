@@ -1,16 +1,35 @@
+-- COLOSSEUM units-costs
 --[[
     COLOSSEUM MODE 
-   Colosseum Units Costs Tweakdefs
+   Colosseum Tweakdefs
 
-   This file contains the unit costs and properties for the Colosseum mode.
-   It is used to define the units available in the Colosseum and their respective costs.
-
-    The units are designed to be used in a Colosseum-style battle arena where players can select units and engage in combat.
+   This file dynamically converts all unit build energy costs to metal costs for Colosseum mode.
+   For each unit: metalcost = metalcost + (energycost / 70), energycost = 0
+   Applies to all units.
 
     This file is part of the BAR Colosseum mode for Spring RTS.
-
-    by Giamme
-]]
-return {
     
-}
+
+    by Giamme, Pandaro and Fra
+]]
+for unitName, unitDef in pairs(UnitDefs) do
+    local metal = UnitDefs[unitName].metalcost or 1
+    local energy = UnitDefs[unitName].energycost or 0
+    local extraMetal = math.floor((energy / 70) + 0.5)
+    UnitDefs[unitName].metalcost = metal + extraMetal 
+
+    UnitDefs[unitName].energycost = 0
+
+    UnitDefs[unitName].energyupkeep = 0
+
+    if unitDef.weapondefs then
+        for weaponName, weapondef in pairs(unitDef.weapondefs) do
+            if(weaponName ~= "disintegrator") then
+                unitDef.weapondefs[weaponName].energypershot = 0
+                unitDef.weapondefs[weaponName].metalpershot = 0
+            end
+        end
+    end
+
+
+end
