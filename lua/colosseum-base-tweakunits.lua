@@ -17,75 +17,7 @@
     thanks to all BAR Italian community for testing and feedback
 ]]
 {
-    armhp = {
-        canReclaim = false,
-        workertime = 99999,
-        metalcost = 0,
-        energycost = 0,
-        reclaimable = false,
-
-        },
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 120,
-            evolution_target = "armdrag"
-        }
-    }, 
-    armlab = {
-        canReclaim = false,
-        workertime = 99999,
-        metalcost = 0,
-        energycost = 0,
-        reclaimable = false,
-
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 120,
-            evolution_target = "armdrag"
-        }
-    },
-    corvp = {
-        canReclaim = false,
-        workertime = 99999,
-        metalcost = 0,
-        energycost = 0,
-        reclaimable = false,
-
-        },
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 120,
-            evolution_target = "armdrag"
-        }
-    },
-    armsy = {
-        canReclaim = false,
-        workertime = 99999,
-        metalcost = 0,
-        energycost = 0,
-        reclaimable = false,
-
-        },
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 120,
-            evolution_target = "armdrag"
-        }
-    },
-    corap = {
-        canReclaim = false,
-        workertime = 99999,
-        metalcost = 0,
-        energycost = 0,
-        reclaimable = false,
-
-        },
-        customparams = {
-            evolution_condition = "timer_global",
-            evolution_timer = 120,
-            evolution_target = "armdrag"
-        }
-    },
+    
     armdrag = { 
         reclaimable = false
     }, 
@@ -101,9 +33,9 @@
             [7] = "armap",
             [8] = "corap",
             [9] = "legap",
-            [10] = "armch",
-            [11] = "corch",
-            [12] = "legch",
+            [10] = "armhp",
+            [11] = "corhp",
+            [12] = "leghp",
             [13] = "armsy",
             [14] = "corsy",
             [15] = "legsy",
@@ -155,9 +87,9 @@
             [7] = "armap",
             [8] = "corap",
             [9] = "legap",
-            [10] = "armch",
-            [11] = "corch",
-            [12] = "legch",
+            [10] = "armhp",
+            [11] = "corhp",
+            [12] = "leghp",
             [13] = "armsy",
             [14] = "corsy",
             [15] = "legsy",
@@ -190,4 +122,60 @@
             [42] = "corshltxuw",
         }, 
     },
+
+    legcom = {
+        canReclaim = true,
+        buildoptions = {
+            [1] = "armlab",
+            [2] = "corlab",
+            [3] = "leglab",
+            [4] = "corvp",
+            [5] = "armvp",
+            [6] = "legvp",
+            [7] = "armap",
+            [8] = "corap",
+            [9] = "legap",
+            [10] = "armhp",
+            [11] = "corhp",
+            [12] = "leghp",
+            [13] = "armsy",
+            [14] = "corsy",
+            [15] = "legsy",
+            [16] = "armalab",
+            [17] = "coralab",
+            [18] = "lagalab",
+            [19] = "armavp",
+            [20] = "coravp",
+            [21] = "legavp",
+            [22] = "armaap",
+            [23] = "coraap",
+            [24] = "legaap",
+            [25] = "armfhp",
+            [26] = "corfhp",
+            [27] = "legfhp",
+            [28] = "armamsub",
+            [29] = "coramsub",
+            [30] = "legamsub",
+            [31] = "armplat",
+            [32] = "corplat",
+            [33] = "legplat",
+            [34] = "armasy",
+            [35] = "corasy",
+            [36] = "legasy",
+            [37] = "armshltx",
+            [38] = "corshltx",
+            [39] = "legshltx",
+            [40] = "armshltxuw",
+            [41] = "legshltxuw",
+            [42] = "corshltxuw",
+        }, 
+        metalmake = 0,
+        energymake = 0,
+        energystorage = 20000,
+
+    }, 
+
 }
+
+
+    
