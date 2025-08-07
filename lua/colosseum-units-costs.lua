@@ -66,8 +66,10 @@ local commanders_list = {
 }
 
 local function SetupCommander(unitName)
-    
-        
+        UnitDefs[unitName].metalmake = 0
+        UnitDefs[unitName].energymake = 0
+        UnitDefs[unitName].energystorage = 20000
+        UnitDefs[unitName].metalstorage = 20000
         UnitDefs[unitName].canReclaim = true
         UnitDefs[unitName].buildoptions = {
             [1] = "armlab",
@@ -113,9 +115,7 @@ local function SetupCommander(unitName)
             [41] = "legshltxuw",
             [42] = "corshltxuw",
         } 
-        UnitDefs[unitName].metalmake = 0
-        UnitDefs[unitName].energymake = 0
-        UnitDefs[unitName].energystorage = 20000
+
 
 end
 
@@ -134,6 +134,11 @@ local function SetupLab(unitName)
         evolution_timer = 120,
         evolution_target = "armdrag"
     }
+    for index, unit in pairs(UnitDefs[unitName].buildoptions) do
+        if UnitDefs[unit].buildoptions then
+            table.remove(UnitDefs[unitName].buildoptions,index)
+        end
+    end
     --UnitDefs[unitName].
 end
 
