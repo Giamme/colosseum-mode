@@ -120,7 +120,6 @@ local function SetupCommander(unitName)
 end
 
 
-
 local function SetupLab(unitName)
     UnitDefs[unitName].metalcost = 0
     UnitDefs[unitName].energycost = 0
@@ -131,7 +130,7 @@ local function SetupLab(unitName)
     
     UnitDefs[unitName].customparams = {
         evolution_condition = "timer_global",
-        evolution_timer = 120,
+        evolution_timer = 300,
         evolution_target = "armdrag"
     }
     for index, unit in pairs(UnitDefs[unitName].buildoptions) do
@@ -153,7 +152,7 @@ for unitName, unitDef in pairs(UnitDefs) do
         local metal = UnitDefs[unitName].metalcost or 1
         local energy = UnitDefs[unitName].energycost or 0
         local extraMetal = math.floor((energy / 70) + 0.5)
-        UnitDefs[unitName].metalcost = metal + extraMetal 
+        UnitDefs[unitName].metalcost = ( metal + extraMetal ) --/ 21 --magia magia portami via
         UnitDefs[unitName].energycost = 0
 
         -- Set energy upkeep to 0 for all units, some units like jammers or commanders have energy upkeep
