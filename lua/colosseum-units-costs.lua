@@ -152,7 +152,7 @@ for unitName, unitDef in pairs(UnitDefs) do
         local metal = UnitDefs[unitName].metalcost or 1
         local energy = UnitDefs[unitName].energycost or 0
         local extraMetal = math.floor((energy / 70) + 0.5)
-        UnitDefs[unitName].metalcost = (math.ceil( metal + extraMetal ) / 10) --magia magia portami via
+        UnitDefs[unitName].metalcost = math.ceil(( metal + extraMetal ) / 10) --magia magia portami via
         UnitDefs[unitName].energycost = 0
 
         -- Set energy upkeep to 0 for all units, some units like jammers or commanders have energy upkeep
