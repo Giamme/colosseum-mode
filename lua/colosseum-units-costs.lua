@@ -59,6 +59,68 @@ local labs_list = {
         }
 local builders_list = {}
 
+local commanders_list = {
+    armcom = 1 ,
+    corcom = 1 ,
+    legcom = 1 ,
+}
+
+local function SetupCommander(unitName)
+    
+        
+        UnitDefs[unitName].canReclaim = true
+        UnitDefs[unitName].buildoptions = {
+            [1] = "armlab",
+            [2] = "corlab",
+            [3] = "leglab",
+            [4] = "corvp",
+            [5] = "armvp",
+            [6] = "legvp",
+            [7] = "armap",
+            [8] = "corap",
+            [9] = "legap",
+            [10] = "armhp",
+            [11] = "corhp",
+            [12] = "leghp",
+            [13] = "armsy",
+            [14] = "corsy",
+            [15] = "legsy",
+            [16] = "armalab",
+            [17] = "coralab",
+            [18] = "lagalab",
+            [19] = "armavp",
+            [20] = "coravp",
+            [21] = "legavp",
+            [22] = "armaap",
+            [23] = "coraap",
+            [24] = "legaap",
+            [25] = "armfhp",
+            [26] = "corfhp",
+            [27] = "legfhp",
+            [28] = "armamsub",
+            [29] = "coramsub",
+            [30] = "legamsub",
+            [31] = "armplat",
+            [32] = "corplat",
+            [33] = "legplat",
+            [34] = "armasy",
+            [35] = "corasy",
+            [36] = "legasy",
+            [37] = "armshltx",
+            [38] = "corshltx",
+            [39] = "legshltx",
+            [40] = "armshltxuw",
+            [41] = "legshltxuw",
+            [42] = "corshltxuw",
+        } 
+        UnitDefs[unitName].metalmake = 0
+        UnitDefs[unitName].energymake = 0
+        UnitDefs[unitName].energystorage = 20000
+
+end
+
+
+
 local function SetupLab(unitName)
     UnitDefs[unitName].metalcost = 0
     UnitDefs[unitName].energycost = 0
@@ -78,8 +140,8 @@ end
 for unitName, unitDef in pairs(UnitDefs) do
     if labs_list[unitName] then
         SetupLab(unitName)
-    elseif UnitDefs[unitName].buildoptions then
-        --pass
+    elseif commanders_list[unitName] then
+        SetupCommander(unitName)
     else
         local metal = UnitDefs[unitName].metalcost or 1
         local energy = UnitDefs[unitName].energycost or 0

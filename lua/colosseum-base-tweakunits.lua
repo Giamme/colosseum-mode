@@ -16,12 +16,14 @@
     by Giamme, Pandaro, Fra
     thanks to all BAR Italian community for testing and feedback
 ]]
+local MetalStore = 100000,
 {
     
     armdrag = { 
         reclaimable = false
     }, 
     armcom = {
+        metalstorage = MetalStore,
         canReclaim = true,
         buildoptions = {
             [1] = "armlab",
@@ -73,6 +75,7 @@
 
     }, 
     corcom = {
+        metalstorage = MetalStore,
         canReclaim = true,
         metalmake = 0,
         energymake = 0,
@@ -124,6 +127,7 @@
     },
 
     legcom = {
+        metalstorage = MetalStore,
         canReclaim = true,
         buildoptions = {
             [1] = "armlab",
