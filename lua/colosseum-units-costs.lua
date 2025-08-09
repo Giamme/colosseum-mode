@@ -109,11 +109,11 @@ local function SetupCommander(unitName)
             [35] = "corasy",
             [36] = "legasy",
             [37] = "armshltx",
-            [38] = "corshltx",
-            [39] = "legshltx",
+            [38] = "corgant",
+            [39] = "leggant",
             [40] = "armshltxuw",
             [41] = "legshltxuw",
-            [42] = "corshltxuw",
+            [42] = "corgantuw",
         } 
 
 
@@ -133,11 +133,11 @@ local function SetupLab(unitName)
         evolution_timer = 300,
         evolution_target = "armdrag"
     }
-    for index, unit in pairs(UnitDefs[unitName].buildoptions) do
+    --[[for index, unit in pairs(UnitDefs[unitName].buildoptions) do
         if UnitDefs[unit].buildoptions then
             table.remove(UnitDefs[unitName].buildoptions,index)
         end
-    end
+    end]]
     --UnitDefs[unitName].
 end
 
@@ -148,6 +148,7 @@ for unitName, unitDef in pairs(UnitDefs) do
         SetupCommander(unitName)
     elseif unitName == armdrag then
         UnitDefs[unitName].reclaimable = false
+    
     else
         local metal = UnitDefs[unitName].metalcost or 1
         local energy = UnitDefs[unitName].energycost or 0
@@ -169,6 +170,22 @@ for unitName, unitDef in pairs(UnitDefs) do
                 end
             end
         end
+        --remove all the buildoptions from builders
+        if UnitDefs[unitName].buildoptions then
+            --Spring.Echo(unitName)
+            for index, buildable_unit in pairs(UnitDefs[unitName].buildoptions) do
+                if not string.find(buildable_unit,'mine') then
+
+                    --    Spring.Echo(index,buildable_unit)
+                        UnitDefs[unitName].buildoptions[index] = ""
+                        --table.remove(UnitDefs[unitName].buildoptions,index)
+                    --end
+                end
+
+                
+            end
+        end
+
     end
 
 
