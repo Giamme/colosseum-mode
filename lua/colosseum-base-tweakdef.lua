@@ -1,4 +1,4 @@
--- COLOSSEUM units-costs
+-- COLOSSEUM baseV0.0.1
 --[[
     COLOSSEUM MODE 
    Colosseum Tweakdefs
@@ -11,7 +11,79 @@
     
 
     by Giamme, Pandaro and Fra
+    thanks to the Italian BAR community for the help testing and supporting the development of this mode.
 ]]
+
+local emptyBuildOptions = {
+    [1] = "",
+    [2] = "",
+    [3] = "",
+    [4] = "",
+    [5] = "",
+    [6] = "",
+    [7] = "",
+    [8] = "",
+    [9] = "",
+    [10] = "",
+    [11] = "",
+    [12] = "",
+    [13] = "",
+    [14] = "",
+    [15] = "",
+    [16] = "",
+    [17] = "",
+    [18] = "",
+    [19] = "",
+    [20] = "",
+    [21] = "",
+    [22] = "",
+    [23] = "",
+    [24] = "",
+    [25] = "",
+    [26] = "",
+    [27] = "",
+    [28] = "",
+    [29] = "",
+    [30] = "",
+    [31] = "",
+    [32] = "",
+    [33] = "",
+    [34] = "",
+    [35] = "",
+    [36] = "",
+    [37] = "",
+    [38] = "",
+    [39] = "",
+    [40] = "",
+    [41] = "",
+    [42] = "",
+}
+local battlePhaseTime = 120 -- 5 minutes
+
+local armcom_vanilla = UnitDefs["armcom"]
+local corcom_vanilla = UnitDefs["corcom"]
+local legcom_vanilla = UnitDefs["legcom"]
+
+local vanilla_coms = {
+    arm = armcom_vanilla,
+    cor = corcom_vanilla,
+    leg = legcom_vanilla,
+}
+
+local function deepcopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, getmetatable(orig))
+    else
+        copy = orig
+    end
+    return copy
+end
 
 local labs_list = {
             armlab = 1 ,
@@ -65,13 +137,33 @@ local commanders_list = {
     legcom = 1 ,
 }
 
-local function SetupCommander(unitName)
+    local function SetupCommander(unitName)
+        local faction = unitName:sub(1, 3) -- Extract the faction from the unit name
+
+        local evoTarget1 = faction .. "comlvl2" -- Set the evolution target for the building phase
+        local evoTarget2 = faction .. "comlvl3" -- Set the evolution target for the battle phase
+
+        UnitDefs[unitName].customparams = {
+            evolution_condition = "timer",
+            evolution_timer = 3,
+            evolution_target = evoTarget1 -- Set the evolution target to the next level commander
+        }
         UnitDefs[unitName].metalmake = 0
         UnitDefs[unitName].energymake = 0
         UnitDefs[unitName].energystorage = 20000
         UnitDefs[unitName].metalstorage = 20000
-        UnitDefs[unitName].canReclaim = true
-        UnitDefs[unitName].buildoptions = {
+
+        UnitDefs[evoTarget1] = deepcopy(vanilla_coms[faction]) -- Deep copy the vanilla commander definition
+        
+        -- Set the options for the builder commander
+        UnitDefs[evoTarget1].workertime = 99999
+        UnitDefs[evoTarget1].buildDistance = 750
+        UnitDefs[evoTarget1].metalmake = 0
+        UnitDefs[evoTarget1].energymake = 0
+        UnitDefs[evoTarget1].energystorage = 20000
+        UnitDefs[evoTarget1].metalstorage = 20000
+        UnitDefs[evoTarget1].canReclaim = true
+        UnitDefs[evoTarget1].buildoptions = {
             [1] = "armlab",
             [2] = "corlab",
             [3] = "leglab",
@@ -115,14 +207,27 @@ local function SetupCommander(unitName)
             [41] = "legshltxuw",
             [42] = "corshltxuw",
         } 
+        UnitDefs[evoTarget1].customparams = {
+            evolution_condition = "timer_global",
+            evolution_timer = battlePhaseTime,
+            evolution_target = evoTarget2 -- Set the evolution target to the next level commander
+        }
 
+        UnitDefs[evoTarget2] = deepcopy(vanilla_coms[faction]) -- Deep copy the vanilla commander definition
 
-end
-
-
-local function SetupLab(unitName)
-    UnitDefs[unitName].metalcost = 0
-    UnitDefs[unitName].energycost = 0
+        UnitDefs[evoTarget2].buildoptions = deepcopy(emptyBuildOptions) -- Set build options to empty for the final commander
+        UnitDefs[evoTarget2].canReclaim = false -- Disable reclaim for the final commander
+        UnitDefs[evoTarget2].metalmake = 0
+        UnitDefs[evoTarget2].energymake = 0
+        UnitDefs[evoTarget2].energystorage = 20000
+        UnitDefs[evoTarget2].metalstorage = 20000
+        
+    end
+    
+    
+    local function SetupLab(unitName)
+        UnitDefs[unitName].metalcost = 0
+        UnitDefs[unitName].energycost = 0
     UnitDefs[unitName].buildtime = 1
     UnitDefs[unitName].workertime = 99999
     UnitDefs[unitName].reclaimable = false
@@ -130,7 +235,7 @@ local function SetupLab(unitName)
     
     UnitDefs[unitName].customparams = {
         evolution_condition = "timer_global",
-        evolution_timer = 300,
+        evolution_timer = battlePhaseTime,
         evolution_target = "armdrag"
     }
     for index, unit in pairs(UnitDefs[unitName].buildoptions) do
