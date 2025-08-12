@@ -146,7 +146,7 @@ for unitName, unitDef in pairs(UnitDefs) do
         SetupLab(unitName)
     elseif commanders_list[unitName] then
         SetupCommander(unitName)
-    elseif unitName == armdrag then
+    elseif unitName == "armdrag" then
         UnitDefs[unitName].reclaimable = false
     else
         local metal = UnitDefs[unitName].metalcost or 1
